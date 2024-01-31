@@ -3,5 +3,6 @@ import { CreateQueueDto } from './create-queue.dto';
 import { QueueStatus } from '../interfaces/dto';
 
 export class UpdateQueueDto extends PartialType(CreateQueueDto) {
+  queueId: number;
   queueStatus: QueueStatus;
 }

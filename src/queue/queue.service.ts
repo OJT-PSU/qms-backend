@@ -1,24 +1,47 @@
 import { Injectable } from '@nestjs/common';
-import { CreateQueueDto } from './dto/create-queue.dto';
-import { UpdateQueueDto } from './dto/update-queue.dto';
-import { QueueStatus } from './interfaces/dto';
+import { PrismaService } from 'src/prisma.service';
+import { Queue, Prisma, QueueStatus } from '@prisma/client';
 
 @Injectable()
 export class QueueService {
-  createQueueCustomer(createQueueDto: CreateQueueDto) {
-    return 'This action adds a new queue';
+  constructor(private prisma: PrismaService) {}
+
+  async createQueueCustomer(data: Prisma.QueueCreateInput): Promise<Queue> {
+    return await this.prisma.queue.create({
+      data,
+    });
   }
 
-  findQueueCustomers(queueStatus: QueueStatus | 'None' = 'None') {
-    return `This action returns all queue`;
+  async findAllQueueCustomers(): Promise<Array<Queue>> {
+    return this.prisma.queue.findMany({});
+  }
+
+  async findFilteredQueueCustomers(
+    queueStatus: QueueStatus,
+  ): Promise<Array<Queue>> {
+    return await this.prisma.queue.findMany({
+      where: {
+        queueStatus,
+      },
+    });
   }
 
   findOneQueueCustomer(id: number) {
     return `This action returns a #${id} queue`;
   }
 
-  updateQueueCustomer(id: number, updateQueueDto: UpdateQueueDto) {
-    return `This action updates a #${id} queue`;
+  async updateQueueCustomerStatus(
+    queueId: number,
+    params: Prisma.QueueUpdateInput,
+  ) {
+    return await this.prisma.queue.update({
+      where: {
+        queueId: queueId,
+      },
+      data: {
+        queueStatus: params.queueStatus,
+      },
+    });
   }
 
   remove(id: number) {

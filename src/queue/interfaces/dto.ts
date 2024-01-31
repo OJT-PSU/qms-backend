@@ -1,1 +1,1 @@
-export type QueueStatus = 'Finished' | 'InProgress' | 'Waiting';
+export type QueueStatus = 'accommodated' | 'waiting';

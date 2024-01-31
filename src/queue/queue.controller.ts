@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { QueueService } from './queue.service';
 import { CreateQueueDto } from './dto/create-queue.dto';
+import { QueueStatus } from '@prisma/client';
 import { UpdateQueueDto } from './dto/update-queue.dto';
 
 @Controller('queue')
@@ -16,23 +17,25 @@ export class QueueController {
   constructor(private readonly queueService: QueueService) {}
 
   @Post()
-  create(@Body() createQueueDto: CreateQueueDto) {
+  createQueueCustomer(@Body() createQueueDto: CreateQueueDto) {
     return this.queueService.createQueueCustomer(createQueueDto);
   }
 
   @Get()
-  findAll() {
-    return this.queueService.findQueueCustomers();
+  findAllQueueCustmers() {
+    return this.queueService.findAllQueueCustomers();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.queueService.findOneQueueCustomer(+id);
+  @Get(':queueStatus')
+  findOne(@Param('queueStatus') queueStatus: QueueStatus) {
+    return this.queueService.findFilteredQueueCustomers(queueStatus);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateQueueDto: UpdateQueueDto) {
-    return this.queueService.updateQueueCustomer(+id, updateQueueDto);
+  @Patch()
+  async update(@Body() params: UpdateQueueDto) {
+    return this.queueService.updateQueueCustomerStatus(params.queueId, {
+      queueStatus: params.queueStatus,
+    });
   }
 
   @Delete(':id')
