@@ -19,6 +19,7 @@ export class QueueController {
 
   @Post()
   createQueueCustomer(@Body() createQueueDto: CreateQueueDto) {
+    console.log({ createQueueDto });
     return this.queueService.createQueueCustomer(createQueueDto);
   }
 
@@ -37,9 +38,10 @@ export class QueueController {
 
   @Patch()
   async updateQueueCustomerStatus(@Body() params: UpdateQueueDto) {
-    return this.queueService.updateQueueCustomerStatus(params.queueId, {
-      queueStatus: params.queueStatus,
-    });
+    return this.queueService.updateQueueCustomerStatus(
+      params.queueId,
+      params.queueStatus,
+    );
   }
 
   @Delete(':id')

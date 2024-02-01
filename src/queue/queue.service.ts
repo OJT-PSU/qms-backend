@@ -30,16 +30,13 @@ export class QueueService {
     return `This action returns a #${id} queue`;
   }
 
-  async updateQueueCustomerStatus(
-    queueId: number,
-    params: Prisma.QueueUpdateInput,
-  ) {
+  async updateQueueCustomerStatus(queueId: number, queueStatus: QueueStatus) {
     return await this.prisma.queue.update({
       where: {
         queueId: queueId,
       },
       data: {
-        queueStatus: params.queueStatus,
+        queueStatus,
       },
     });
   }
