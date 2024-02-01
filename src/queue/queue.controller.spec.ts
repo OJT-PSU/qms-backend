@@ -55,6 +55,16 @@ describe('QueueController', () => {
     expect(controller).toBeDefined();
   });
 
+  describe('findAllQueueCustomers', () => {
+    it('should return an array of customers', async () => {
+      jest
+        .spyOn(service, 'findAllQueueCustomers')
+        .mockResolvedValueOnce(mockCustomer);
+      const response = await controller.findAllQueueCustomers();
+      expect(response).toStrictEqual(mockCustomer);
+    });
+  });
+
   describe('createQueueCustomer', () => {
     it('should create a queue customer', async () => {
       const response = await controller.createQueueCustomer({
@@ -107,6 +117,19 @@ describe('QueueController', () => {
         'accommodated',
       );
       expect(response).toStrictEqual([mockCustomer[1]]);
+    });
+  });
+
+  describe('updateQueueCustomerStatus', () => {
+    it('should update the queue status of a customer', async () => {
+      jest
+        .spyOn(service, 'updateQueueCustomerStatus')
+        .mockResolvedValueOnce(mockCustomer[1]);
+      const response = await controller.updateQueueCustomerStatus({
+        queueId: 2,
+        queueStatus: 'accommodated',
+      });
+      expect(response).toStrictEqual(mockCustomer[1]);
     });
   });
 });
