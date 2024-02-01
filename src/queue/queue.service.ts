@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '../prisma.service';
 import { Queue, Prisma, QueueStatus } from '@prisma/client';
 
 @Injectable()
@@ -44,7 +44,12 @@ export class QueueService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} queue`;
+  async remove(id: number) {
+    const response = await this.prisma.queue.delete({
+      where: {
+        queueId: id,
+      },
+    });
+    return response;
   }
 }

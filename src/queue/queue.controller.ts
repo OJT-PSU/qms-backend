@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseEnumPipe,
 } from '@nestjs/common';
 import { QueueService } from './queue.service';
 import { CreateQueueDto } from './dto/create-queue.dto';
@@ -22,12 +23,15 @@ export class QueueController {
   }
 
   @Get()
-  findAllQueueCustmers() {
+  findAllQueueCustomers() {
     return this.queueService.findAllQueueCustomers();
   }
 
   @Get(':queueStatus')
-  findOne(@Param('queueStatus') queueStatus: QueueStatus) {
+  findFilteredQueueCustomers(
+    @Param('queueStatus', new ParseEnumPipe(QueueStatus))
+    queueStatus: QueueStatus,
+  ) {
     return this.queueService.findFilteredQueueCustomers(queueStatus);
   }
 
