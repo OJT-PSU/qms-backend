@@ -19,7 +19,6 @@ export class QueueController {
 
   @Post()
   createQueueCustomer(@Body() createQueueDto: CreateQueueDto) {
-    console.log({ createQueueDto });
     return this.queueService.createQueueCustomer(createQueueDto);
   }
 

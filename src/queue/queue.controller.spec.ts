@@ -23,6 +23,14 @@ const mockCustomer: Queue[] = [
     queueStatus: 'accommodated',
     createdAt: new Date('2024-01-31T07:47:35.237Z'),
   },
+  {
+    queueId: 5,
+    name: 'Klein Moretti',
+    email: 'klein@gmail.com',
+    contactNumber: '09123456787',
+    queueStatus: 'ongoing',
+    createdAt: new Date('2024-01-31T07:47:35.237Z'),
+  },
 ];
 
 describe('QueueController', () => {
@@ -102,6 +110,20 @@ describe('QueueController', () => {
         'waiting',
       );
       expect(response).toStrictEqual([mockCustomer[0]]);
+    });
+
+    it('should return only ongoing customers', async () => {
+      jest
+        .spyOn(service, 'findFilteredQueueCustomers')
+        .mockImplementationOnce(async () => {
+          return [mockCustomer[2]];
+        });
+
+      const response = await controller.findFilteredQueueCustomers('ongoing');
+      expect(service.findFilteredQueueCustomers).toHaveBeenCalledWith(
+        'ongoing',
+      );
+      expect(response).toStrictEqual([mockCustomer[2]]);
     });
 
     it('should return only accommodated customers', async () => {

@@ -20,6 +20,14 @@ const mockCustomer: Queue[] = [
     queueStatus: 'accommodated',
     createdAt: new Date('2024-01-31T07:47:35.237Z'),
   },
+  {
+    queueId: 5,
+    name: 'Klein Moretti',
+    email: 'klein@gmail.com',
+    contactNumber: '09123456787',
+    queueStatus: 'ongoing',
+    createdAt: new Date('2024-01-31T09:47:35.237Z'),
+  },
 ];
 
 const db = {
@@ -92,6 +100,16 @@ describe('QueueService', () => {
       const response = await service.findFilteredQueueCustomers('accommodated');
       expect(response).toBeInstanceOf(Array);
       expect(response).toStrictEqual([mockCustomer[1]]);
+    });
+
+    it('should return an array of only ongoing customers', async () => {
+      jest
+        .spyOn(prisma.queue, 'findMany')
+        .mockResolvedValueOnce([mockCustomer[2]]);
+
+      const response = await service.findFilteredQueueCustomers('ongoing');
+      expect(response).toBeInstanceOf(Array);
+      expect(response).toStrictEqual([mockCustomer[2]]);
     });
   });
 });

@@ -7,6 +7,6 @@ export class UpdateQueueDto extends PartialType(CreateQueueDto) {
   @IsNumber()
   queueId: number;
 
-  @IsIn(['waiting', 'accommodated'])
+  @IsIn(['waiting', 'accommodated', 'ongoing'])
   queueStatus: QueueStatus;
 }
