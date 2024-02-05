@@ -11,6 +11,7 @@ const mockCustomer: Queue[] = [
     contactNumber: '09123456789',
     queueStatus: 'waiting',
     createdAt: new Date('2024-01-31T06:43:45.698Z'),
+    terminal: null,
   },
   {
     queueId: 2,
@@ -19,6 +20,7 @@ const mockCustomer: Queue[] = [
     contactNumber: '09123456781',
     queueStatus: 'accommodated',
     createdAt: new Date('2024-01-31T07:47:35.237Z'),
+    terminal: null,
   },
   {
     queueId: 5,
@@ -27,6 +29,7 @@ const mockCustomer: Queue[] = [
     contactNumber: '09123456787',
     queueStatus: 'ongoing',
     createdAt: new Date('2024-01-31T09:47:35.237Z'),
+    terminal: null,
   },
 ];
 

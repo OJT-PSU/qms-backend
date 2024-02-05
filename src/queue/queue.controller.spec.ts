@@ -14,6 +14,7 @@ const mockCustomer: Queue[] = [
     contactNumber: '09123456789',
     queueStatus: 'waiting',
     createdAt: new Date('2024-01-31T06:43:45.698Z'),
+    terminal: null,
   },
   {
     queueId: 2,
@@ -22,6 +23,7 @@ const mockCustomer: Queue[] = [
     contactNumber: '09123456781',
     queueStatus: 'accommodated',
     createdAt: new Date('2024-01-31T07:47:35.237Z'),
+    terminal: null,
   },
   {
     queueId: 5,
@@ -30,6 +32,7 @@ const mockCustomer: Queue[] = [
     contactNumber: '09123456787',
     queueStatus: 'ongoing',
     createdAt: new Date('2024-01-31T07:47:35.237Z'),
+    terminal: null,
   },
 ];
 
@@ -49,7 +52,7 @@ describe('QueueController', () => {
               .fn()
               .mockResolvedValueOnce(mockCustomer),
             findFilteredQueueCustomers: jest.fn(),
-            updateQueueCustomerStatus: jest.fn(),
+            updateQueueCustomer: jest.fn(),
           },
         },
       ],
@@ -145,13 +148,17 @@ describe('QueueController', () => {
   describe('updateQueueCustomerStatus', () => {
     it('should update the queue status of a customer', async () => {
       jest
-        .spyOn(service, 'updateQueueCustomerStatus')
+        .spyOn(service, 'updateQueueCustomer')
         .mockResolvedValueOnce(mockCustomer[1]);
-      const response = await controller.updateQueueCustomerStatus({
+
+      const mockCustomerA = mockCustomer[1];
+      mockCustomerA.terminal = 'A';
+      const response = await controller.updateQueueCustomer({
         queueId: 2,
         queueStatus: 'accommodated',
+        terminal: 'A',
       });
-      expect(response).toStrictEqual(mockCustomer[1]);
+      expect(response).toStrictEqual(mockCustomerA);
     });
   });
 });

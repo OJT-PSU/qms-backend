@@ -36,10 +36,11 @@ export class QueueController {
   }
 
   @Patch()
-  async updateQueueCustomerStatus(@Body() params: UpdateQueueDto) {
-    return this.queueService.updateQueueCustomerStatus(
+  async updateQueueCustomer(@Body() params: UpdateQueueDto) {
+    return this.queueService.updateQueueCustomer(
       params.queueId,
       params.queueStatus,
+      params.terminal,
     );
   }
 
