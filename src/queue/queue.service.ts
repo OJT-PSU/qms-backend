@@ -1,16 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Queue, Prisma, QueueStatus, TerminalType } from '@prisma/client';
+import { EventsGateway } from '../events/events.gateway';
 
 @Injectable()
 export class QueueService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    @Inject(forwardRef(() => EventsGateway)) private gateway: EventsGateway,
+    private prisma: PrismaService,
+  ) {}
 
   async createQueueCustomer(data: Prisma.QueueCreateInput): Promise<Queue> {
-    // this.gateway.sendUpdateEvent();
-    return await this.prisma.queue.create({
+    const createdCustomer = await this.prisma.queue.create({
       data,
     });
+    this.gateway.sendUpdateEvent();
+    return createdCustomer;
   }
 
   async findAllQueueCustomers(): Promise<Array<Queue>> {
@@ -36,8 +41,7 @@ export class QueueService {
     queueStatus: QueueStatus,
     terminal: TerminalType,
   ) {
-    // this.gateway.sendUpdateEvent();
-    return await this.prisma.queue.update({
+    const updateResult = await this.prisma.queue.update({
       where: {
         queueId: queueId,
       },
@@ -46,15 +50,19 @@ export class QueueService {
         terminal,
       },
     });
+
+    this.gateway.sendUpdateEvent();
+    return updateResult;
   }
 
   async remove(id: number) {
-    // this.gateway.sendUpdateEvent();
     const response = await this.prisma.queue.delete({
       where: {
         queueId: id,
       },
     });
+
+    this.gateway.sendUpdateEvent();
     return response;
   }
 }
