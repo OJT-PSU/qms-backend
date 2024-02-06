@@ -22,6 +22,11 @@ enum TerminalType {
   C
 }
 
+enum TerminalStatus {
+  active
+  inactive
+}
+
 model Queue {
   queueId Int @default(autoincrement()) @id
   name String
@@ -30,4 +35,11 @@ model Queue {
   queueStatus QueueStatus @default(waiting)
   createdAt DateTime @default(now())
   terminal TerminalType?
+}
+
+model Terminal {
+  terminalId Int @default(autoincrement()) @id
+  terminalName String
+  remarks String
+  status TerminalStatus
 }

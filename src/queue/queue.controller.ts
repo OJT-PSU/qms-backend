@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseEnumPipe,
+  HttpCode,
 } from '@nestjs/common';
 import { QueueService } from './queue.service';
 import { CreateQueueDto } from './dto/create-queue.dto';
@@ -18,16 +19,19 @@ export class QueueController {
   constructor(private readonly queueService: QueueService) {}
 
   @Post()
+  @HttpCode(201)
   createQueueCustomer(@Body() createQueueDto: CreateQueueDto) {
     return this.queueService.createQueueCustomer(createQueueDto);
   }
 
   @Get()
+  @HttpCode(200)
   findAllQueueCustomers() {
     return this.queueService.findAllQueueCustomers();
   }
 
   @Get(':queueStatus')
+  @HttpCode(200)
   findFilteredQueueCustomers(
     @Param('queueStatus', new ParseEnumPipe(QueueStatus))
     queueStatus: QueueStatus,
@@ -36,6 +40,7 @@ export class QueueController {
   }
 
   @Patch()
+  @HttpCode(200)
   async updateQueueCustomer(@Body() params: UpdateQueueDto) {
     return this.queueService.updateQueueCustomer(
       params.queueId,
