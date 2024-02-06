@@ -43,3 +43,10 @@ model Terminal {
   remarks String
   status TerminalStatus
 }
+
+model Display {
+  displayId  Int @default(autoincrement()) @id
+  dispMsg String @db.VarChar(10000) 
+  scrollTime String
+}
+

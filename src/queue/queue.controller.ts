@@ -41,7 +41,7 @@ export class QueueController {
 
   @Patch()
   @HttpCode(200)
-  async updateQueueCustomer(@Body() params: UpdateQueueDto) {
+  updateQueueCustomer(@Body() params: UpdateQueueDto) {
     return this.queueService.updateQueueCustomer(
       params.queueId,
       params.queueStatus,
