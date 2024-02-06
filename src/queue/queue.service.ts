@@ -7,6 +7,7 @@ export class QueueService {
   constructor(private prisma: PrismaService) {}
 
   async createQueueCustomer(data: Prisma.QueueCreateInput): Promise<Queue> {
+    // this.gateway.sendUpdateEvent();
     return await this.prisma.queue.create({
       data,
     });
@@ -35,6 +36,7 @@ export class QueueService {
     queueStatus: QueueStatus,
     terminal: TerminalType,
   ) {
+    // this.gateway.sendUpdateEvent();
     return await this.prisma.queue.update({
       where: {
         queueId: queueId,
@@ -47,6 +49,7 @@ export class QueueService {
   }
 
   async remove(id: number) {
+    // this.gateway.sendUpdateEvent();
     const response = await this.prisma.queue.delete({
       where: {
         queueId: id,

@@ -5,6 +5,8 @@ import { QueueModule } from './queue/queue.module';
 import { ConfigModule } from '@nestjs/config';
 import { DisplayModule } from './display/display.module';
 import { TerminalModule } from './terminal/terminal.module';
+import { EventsGateway } from './events/events.gateway';
+import { EventsModule } from './events/events.module';
 
 const ENV = process.env.NODE_ENV;
 
@@ -16,8 +18,9 @@ const ENV = process.env.NODE_ENV;
     }),
     DisplayModule,
     TerminalModule,
+    EventsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, EventsGateway],
 })
 export class AppModule {}
