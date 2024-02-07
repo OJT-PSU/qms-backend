@@ -8,13 +8,14 @@ import {
 import { Server, Socket } from 'socket.io';
 import { QueueService } from '../queue/queue.service';
 import { forwardRef, Inject } from '@nestjs/common';
+import { OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
 
 @WebSocketGateway({
   cors: {
     origin: '*',
   },
 })
-export class EventsGateway {
+export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
@@ -22,6 +23,17 @@ export class EventsGateway {
     @Inject(forwardRef(() => QueueService))
     private queueService: QueueService,
   ) {}
+
+  handleConnection(client: any) {
+    // Handle connection event
+    console.log('hello client');
+  }
+
+  handleDisconnect(client: any) {
+    // Handle disconnection event
+    // Handle disconnection event
+    console.log('bye client');
+  }
 
   sendUpdateEvent() {
     this.server.emit('new-queue-update');
