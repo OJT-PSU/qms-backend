@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { Prisma } from '@prisma/client';
+import { DeleteTerminalsDto } from './dto/delete-terminal.dto';
 
 @Injectable()
 export class TerminalService {
@@ -33,10 +34,13 @@ export class TerminalService {
     });
   }
 
-  async removeTerminal(terminalId: number) {
-    return this.prisma.terminal.delete({
+  async removeTerminal(params: DeleteTerminalsDto) {
+    const { ids } = params;
+    return this.prisma.terminal.deleteMany({
       where: {
-        terminalId,
+        terminalId: {
+          in: ids,
+        },
       },
     });
   }

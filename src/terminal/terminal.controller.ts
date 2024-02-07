@@ -10,6 +10,7 @@ import {
 import { TerminalService } from './terminal.service';
 import { CreateTerminalDto } from './dto/create-terminal.dto';
 import { UpdateTerminalDto } from './dto/update-terminal.dto';
+import { DeleteTerminalsDto } from './dto/delete-terminal.dto';
 
 @Controller('terminal')
 export class TerminalController {
@@ -33,8 +34,8 @@ export class TerminalController {
     return this.terminalService.updateTerminal(+terminalId, updateTerminalDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') terminalId: string) {
-    return this.terminalService.removeTerminal(+terminalId);
+  @Delete()
+  remove(@Body() deleteTerminalsDto: DeleteTerminalsDto) {
+    return this.terminalService.removeTerminal(deleteTerminalsDto);
   }
 }
