@@ -27,11 +27,18 @@ enum TerminalStatus {
   inactive
 }
 
+enum transactionType {
+  checkReleasing
+  payment
+  inquiry
+}
+
 model Queue {
   queueId Int @default(autoincrement()) @id
   name String
   email String?
   contactNumber String?
+  transactionType transactionType 
   queueStatus QueueStatus @default(waiting)
   createdAt DateTime @default(now())
   terminal TerminalType?
@@ -39,6 +46,7 @@ model Queue {
 
 model Terminal {
   terminalId Int @default(autoincrement()) @id
+  transactionType transactionType
   terminalName String
   remarks String
   status TerminalStatus

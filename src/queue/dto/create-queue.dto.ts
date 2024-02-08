@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, IsPhoneNumber } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsPhoneNumber, IsIn } from 'class-validator';
+import { transactionType } from '@prisma/client';
 
 export class CreateQueueDto {
   @IsNotEmpty({
@@ -11,4 +12,7 @@ export class CreateQueueDto {
 
   @IsPhoneNumber('PH')
   contactNumber?: string;
+
+  @IsIn(['payment', 'checkReleasing', 'inquiry'])
+  transactionType: transactionType;
 }
