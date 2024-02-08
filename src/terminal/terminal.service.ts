@@ -17,6 +17,14 @@ export class TerminalService {
     return await this.prisma.terminal.findMany({});
   }
 
+  async findOneTerminal(id: number) {
+    return await this.prisma.terminal.findFirst({
+      where: {
+        terminalId: id,
+      },
+    });
+  }
+
   async updateTerminal(
     terminalId: number,
     updateDto: Prisma.TerminalUpdateInput,

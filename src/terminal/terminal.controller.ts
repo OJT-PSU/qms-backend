@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { TerminalService } from './terminal.service';
 import { CreateTerminalDto } from './dto/create-terminal.dto';
@@ -24,6 +25,11 @@ export class TerminalController {
   @Get()
   findAll() {
     return this.terminalService.findAllTerminals();
+  }
+
+  @Get(':id')
+  findOneTerminal(@Param('id', ParseIntPipe) id: number) {
+    return this.terminalService.findOneTerminal(id);
   }
 
   @Patch(':id')
