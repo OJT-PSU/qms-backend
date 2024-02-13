@@ -49,6 +49,7 @@ model Terminal {
 model Display {
   displayId  Int @default(autoincrement()) @id
   dispMsg String @db.VarChar(10000) 
+  video String 
   scrollTime String
 }
 
