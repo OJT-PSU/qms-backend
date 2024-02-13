@@ -1,6 +1,6 @@
 import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { Queue, Prisma, QueueStatus, TerminalType } from '@prisma/client';
+import { Queue, Prisma, QueueStatus } from '@prisma/client';
 import { EventsGateway } from '../events/events.gateway';
 
 @Injectable()
@@ -39,7 +39,7 @@ export class QueueService {
   async updateQueueCustomer(
     queueId: number,
     queueStatus: QueueStatus,
-    terminal: TerminalType,
+    terminal: string,
   ) {
     const updateResult = await this.prisma.queue.update({
       where: {
