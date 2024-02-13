@@ -16,12 +16,6 @@ enum QueueStatus {
   accommodated
 }
 
-enum TerminalType {
-  A
-  B
-  C
-}
-
 enum TerminalStatus {
   active
   inactive
@@ -41,7 +35,7 @@ model Queue {
   transactionType transactionType 
   queueStatus QueueStatus @default(waiting)
   createdAt DateTime @default(now())
-  terminal TerminalType?
+  terminal String?
 }
 
 model Terminal {
