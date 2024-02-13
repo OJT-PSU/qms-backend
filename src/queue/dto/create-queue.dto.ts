@@ -28,7 +28,6 @@ export class CreateQueueDto {
   })
   contactNumber?: string;
 
-  @IsOptional()
   @IsIn(['payment', 'checkReleasing', 'inquiry'])
   transactionType: transactionType;
 }
