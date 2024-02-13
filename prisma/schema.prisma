@@ -36,6 +36,7 @@ model Queue {
   queueStatus QueueStatus @default(waiting)
   createdAt DateTime @default(now())
   terminal String?
+  toDisplay Int @default(0)
 }
 
 model Terminal {

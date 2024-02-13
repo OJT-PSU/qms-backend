@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `queue` ADD COLUMN `toDisplay` INTEGER NOT NULL DEFAULT 0;

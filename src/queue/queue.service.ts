@@ -41,6 +41,11 @@ export class QueueService {
     queueStatus: QueueStatus,
     terminal: string,
   ) {
+    let toDisplay: number = 0;
+    if (queueStatus === 'accommodated') {
+      toDisplay = 1;
+    }
+
     const updateResult = await this.prisma.queue.update({
       where: {
         queueId: queueId,
@@ -48,6 +53,7 @@ export class QueueService {
       data: {
         queueStatus,
         terminal,
+        toDisplay,
       },
     });
 
