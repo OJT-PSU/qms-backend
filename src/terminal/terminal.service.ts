@@ -29,7 +29,7 @@ export class TerminalService {
     terminalId: number,
     updateDto: Prisma.TerminalUpdateInput,
   ) {
-    const { terminalName, status, remarks } = updateDto;
+    const { terminalName, status, remarks, transactionType } = updateDto;
     return this.prisma.terminal.update({
       where: {
         terminalId: terminalId,
@@ -38,6 +38,7 @@ export class TerminalService {
         terminalName,
         status,
         remarks,
+        transactionType,
       },
     });
   }
