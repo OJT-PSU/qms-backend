@@ -61,6 +61,18 @@ export class QueueService {
     return updateResult;
   }
 
+  async updateAllToDisplay() {
+    const updateResult = await this.prisma.queue.updateMany({
+      where: {},
+      data: {
+        toDisplay: 1,
+      },
+    });
+
+    this.gateway.sendUpdateEvent();
+    return updateResult;
+  }
+
   async remove(id: number) {
     const response = await this.prisma.queue.delete({
       where: {

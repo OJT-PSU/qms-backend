@@ -49,6 +49,11 @@ export class QueueController {
     );
   }
 
+  @Patch('reset-queue')
+  updateAllToDisplay() {
+    return this.queueService.updateAllToDisplay();
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.queueService.remove(+id);
