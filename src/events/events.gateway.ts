@@ -52,4 +52,10 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.server.emit('updated-queue', queue); // Broadcast the message to all connected clients
     // console.log(client.disconnected);
   }
+
+  @SubscribeMessage('ping-request')
+  async handlePing(@MessageBody() data: any) {
+    console.log(data);
+    this.server.emit('ping-event', data);
+  }
 }
