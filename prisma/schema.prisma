@@ -27,6 +27,11 @@ enum transactionType {
   inquiry
 }
 
+enum themeType {
+  oneColumn
+  threeColumn
+}
+
 model Queue {
   queueId Int @default(autoincrement()) @id
   name String
@@ -44,7 +49,7 @@ model Terminal {
   transactionType transactionType
   terminalName String
   remarks String
-  status TerminalStatus
+  status TerminalStatus 
 }
 
 model Display {
@@ -52,5 +57,6 @@ model Display {
   dispMsg String @db.VarChar(10000) 
   video String 
   scrollTime String
+  themeType themeType @default(oneColumn)
 }
 
