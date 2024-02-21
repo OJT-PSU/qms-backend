@@ -20,6 +20,10 @@ export class DisplayController {
   createDisplay(@Body() createDisplayDto: CreateDisplayDto) {
     return this.displayService.createDisplay(createDisplayDto);
   }
+  @Get('/theme')
+  getTheme() {
+    return this.displayService.getTheme();
+  }
 
   @Get()
   @HttpCode(200)

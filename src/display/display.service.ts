@@ -33,6 +33,13 @@ export class DisplayService {
     return response;
   }
 
+  async getTheme(): Promise<Display> {
+    const response = await this.prisma.display.findFirst();
+    console.log(typeof response);
+    console.log(response);
+    return response;
+  }
+
   async updateOne(displayId: number, dispMsg: string, scrollTime: string) {
     const response = await this.prisma.display.update({
       where: {
