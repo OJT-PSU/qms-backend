@@ -54,6 +54,7 @@ export class DisplayService {
     });
 
     this.events.sendUpdateThemeEvent();
+    console.log(themeType);
 
     return response;
   }
