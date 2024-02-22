@@ -1,9 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Display, Prisma } from '@prisma/client';
+import { EventsGateway } from 'src/events/events.gateway';
+
 @Injectable()
 export class DisplayService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private events: EventsGateway,
+  ) {}
 
   async createDisplay(data: Prisma.DisplayCreateInput): Promise<Display> {
     return await this.prisma.display.create({
@@ -47,6 +52,8 @@ export class DisplayService {
         themeType: themeType,
       },
     });
+
+    this.events.sendUpdateThemeEvent();
 
     return response;
   }

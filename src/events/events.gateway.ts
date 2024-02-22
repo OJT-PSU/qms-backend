@@ -24,12 +24,12 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private queueService: QueueService,
   ) {}
 
-  handleConnection(client: any) {
+  handleConnection() {
     // Handle connection event
     console.log('hello client');
   }
 
-  handleDisconnect(client: any) {
+  handleDisconnect() {
     // Handle disconnection event
     // Handle disconnection event
     console.log('bye client');
@@ -37,6 +37,10 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   sendUpdateEvent() {
     this.server.emit('new-queue-update');
+  }
+
+  sendUpdateThemeEvent() {
+    this.server.emit('new-theme-update');
   }
 
   @SubscribeMessage('queue-request')
