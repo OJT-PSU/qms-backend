@@ -35,8 +35,19 @@ export class DisplayService {
 
   async getTheme(): Promise<Display> {
     const response = await this.prisma.display.findFirst();
-    console.log(typeof response);
-    console.log(response);
+    return response;
+  }
+
+  async updateTheme(displayId: number, themeType: number) {
+    const response = await this.prisma.display.update({
+      where: {
+        displayId: displayId,
+      },
+      data: {
+        themeType: themeType,
+      },
+    });
+
     return response;
   }
 

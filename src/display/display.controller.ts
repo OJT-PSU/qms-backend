@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { DisplayService } from './display.service';
 import { CreateDisplayDto } from './dto/create-display.dto';
-import { UpdateDisplayDto } from './dto/update-display.dto';
+import { UpdateDisplayDto, UpdateThemeDto } from './dto/update-display.dto';
 @Controller('display')
 export class DisplayController {
   constructor(private readonly displayService: DisplayService) {}
@@ -35,6 +35,12 @@ export class DisplayController {
   @HttpCode(201)
   getOneDisplay(@Param('id') id: string) {
     return this.displayService.getOneDisplay(+id);
+  }
+
+  @Patch('theme')
+  updateTheme(@Body() body: UpdateThemeDto) {
+    const { displayId, themeType } = body;
+    return this.displayService.updateTheme(displayId, themeType);
   }
 
   @Patch()
