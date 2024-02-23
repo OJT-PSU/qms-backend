@@ -53,8 +53,7 @@ export class DisplayService {
       },
     });
 
-    this.events.sendUpdateThemeEvent();
-    console.log(themeType);
+    this.events.sendUpdateThemeEvent(response);
 
     return response;
   }

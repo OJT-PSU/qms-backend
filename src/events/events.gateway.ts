@@ -39,8 +39,8 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.server.emit('new-queue-update');
   }
 
-  sendUpdateThemeEvent() {
-    this.server.emit('new-theme-update');
+  sendUpdateThemeEvent(data: any) {
+    this.server.emit('new-theme-update', data);
   }
 
   @SubscribeMessage('queue-request')
@@ -59,7 +59,6 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @SubscribeMessage('ping-request')
   async handlePing(@MessageBody() data: any) {
-    console.log(data);
     this.server.emit('ping-event', data);
   }
 }
