@@ -14,7 +14,8 @@ export class QueueService {
     const createdCustomer = await this.prisma.queue.create({
       data,
     });
-    this.gateway.sendUpdateEvent();
+    const customers = await this.findAllQueueCustomers();
+    this.gateway.sendUpdateEvent(customers);
     return createdCustomer;
   }
 
@@ -56,8 +57,8 @@ export class QueueService {
         toDisplay,
       },
     });
-
-    this.gateway.sendUpdateEvent();
+    const customers = await this.findAllQueueCustomers();
+    this.gateway.sendUpdateEvent(customers);
     return updateResult;
   }
 
@@ -69,7 +70,8 @@ export class QueueService {
       },
     });
 
-    this.gateway.sendUpdateEvent();
+    const customers = await this.findAllQueueCustomers();
+    this.gateway.sendUpdateEvent(customers);
     return updateResult;
   }
 
@@ -80,7 +82,8 @@ export class QueueService {
       },
     });
 
-    this.gateway.sendUpdateEvent();
+    const customers = await this.findAllQueueCustomers();
+    this.gateway.sendUpdateEvent(customers);
     return response;
   }
 }

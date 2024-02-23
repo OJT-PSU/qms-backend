@@ -3,12 +3,12 @@ import {
   WebSocketGateway,
   WebSocketServer,
   MessageBody,
-  ConnectedSocket,
 } from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
+import { Server } from 'socket.io';
 import { QueueService } from '../queue/queue.service';
 import { forwardRef, Inject } from '@nestjs/common';
 import { OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
+import { Queue } from '@prisma/client';
 
 @WebSocketGateway({
   cors: {
@@ -35,8 +35,8 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     console.log('bye client');
   }
 
-  sendUpdateEvent() {
-    this.server.emit('new-queue-update');
+  sendUpdateEvent(data: Array<Queue>) {
+    this.server.emit('new-queue-update', data);
   }
 
   sendUpdateThemeEvent(data: any) {
@@ -44,13 +44,10 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('queue-request')
-  async handleMessage(
-    @MessageBody() data: string,
-    @ConnectedSocket() client: Socket,
-  ) {
+  async handleMessage(@MessageBody() data: string) {
     // Handle received message
     if (!data) {
-      console.log(client);
+      console.log("it's here");
     }
     const queue = await this.queueService.findAllQueueCustomers();
     this.server.emit('updated-queue', queue); // Broadcast the message to all connected clients
