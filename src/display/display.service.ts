@@ -58,6 +58,19 @@ export class DisplayService {
     return response;
   }
 
+  async updateThemeMessage(displayId: number, dispMsg: string) {
+    const response = await this.prisma.display.update({
+      where: {
+        displayId,
+      },
+      data: {
+        dispMsg,
+      },
+    });
+
+    return response;
+  }
+
   async updateOne(displayId: number, dispMsg: string, scrollTime: string) {
     const response = await this.prisma.display.update({
       where: {

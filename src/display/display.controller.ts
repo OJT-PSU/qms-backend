@@ -10,7 +10,11 @@ import {
 } from '@nestjs/common';
 import { DisplayService } from './display.service';
 import { CreateDisplayDto } from './dto/create-display.dto';
-import { UpdateDisplayDto, UpdateThemeDto } from './dto/update-display.dto';
+import {
+  UpdateDisplayDto,
+  UpdateThemeDto,
+  UpdateThemeMessageDto,
+} from './dto/update-display.dto';
 @Controller('display')
 export class DisplayController {
   constructor(private readonly displayService: DisplayService) {}
@@ -41,6 +45,12 @@ export class DisplayController {
   updateTheme(@Body() body: UpdateThemeDto) {
     const { displayId, themeType } = body;
     return this.displayService.updateTheme(displayId, themeType);
+  }
+
+  @Patch('theme/message')
+  updateMessage(@Body() body: UpdateThemeMessageDto) {
+    const { displayId, dispMsg } = body;
+    return this.displayService.updateThemeMessage(displayId, dispMsg);
   }
 
   @Patch()
