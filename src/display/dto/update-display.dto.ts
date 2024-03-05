@@ -1,10 +1,14 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateDisplayDto } from './create-display.dto';
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateDisplayDto extends PartialType(CreateDisplayDto) {
   @IsNumber()
   displayId: number;
+
+  @IsNumber()
+  @IsOptional()
+  themeType?: number;
 }
 
 export class UpdateThemeDto {

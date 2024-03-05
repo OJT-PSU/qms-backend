@@ -7,6 +7,7 @@ import {
   Body,
   Patch,
   HttpCode,
+  Put,
 } from '@nestjs/common';
 import { DisplayService } from './display.service';
 import { CreateDisplayDto } from './dto/create-display.dto';
@@ -53,13 +54,15 @@ export class DisplayController {
     return this.displayService.updateThemeMessage(displayId, dispMsg);
   }
 
-  @Patch()
+  @Put()
   @HttpCode(200)
   updateOne(@Body() body: UpdateDisplayDto) {
     return this.displayService.updateOne(
       body.displayId,
       body.dispMsg,
       body.scrollTime,
+      body.themeType,
+      body.video,
     );
   }
 

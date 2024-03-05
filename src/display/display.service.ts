@@ -71,7 +71,13 @@ export class DisplayService {
     return response;
   }
 
-  async updateOne(displayId: number, dispMsg: string, scrollTime: string) {
+  async updateOne(
+    displayId: number,
+    dispMsg: string,
+    scrollTime: string,
+    themeType: number,
+    video: string,
+  ) {
     const response = await this.prisma.display.update({
       where: {
         displayId: displayId,
@@ -79,6 +85,8 @@ export class DisplayService {
       data: {
         dispMsg,
         scrollTime,
+        themeType,
+        video,
       },
     });
     return response;
