@@ -89,6 +89,9 @@ export class DisplayService {
         video,
       },
     });
+
+    this.events.sendUpdateThemeEvent(response);
+
     return response;
   }
 }
