@@ -21,10 +21,17 @@ enum TerminalStatus {
   inactive
 }
 
-enum transactionType {
+enum TransactionType {
   checkReleasing
   payment
   inquiry
+}
+
+enum PriorityType {
+  normal
+  senior
+  pwd
+  pregnant
 }
 
 
@@ -33,16 +40,17 @@ model Queue {
   name String
   email String?
   contactNumber String?
-  transactionType transactionType 
+  transactionType TransactionType 
   queueStatus QueueStatus @default(waiting)
   createdAt DateTime @default(now())
   terminal String?
   toDisplay Int @default(0)
+  priorityType PriorityType
 }
 
 model Terminal {
   terminalId Int @default(autoincrement()) @id
-  transactionType transactionType
+  transactionType TransactionType
   terminalName String
   remarks String
   status TerminalStatus 
