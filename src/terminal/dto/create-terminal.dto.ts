@@ -1,4 +1,4 @@
-import { TerminalStatus, transactionType } from '@prisma/client';
+import { TerminalStatus, TransactionType } from '@prisma/client';
 import { IsIn, IsNotEmpty } from 'class-validator';
 
 export class CreateTerminalDto {
@@ -12,5 +12,5 @@ export class CreateTerminalDto {
 
   remarks: string;
   @IsIn(['payment', 'checkReleasing', 'inquiry'])
-  transactionType: transactionType;
+  transactionType: TransactionType;
 }

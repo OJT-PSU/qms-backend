@@ -5,7 +5,7 @@ import {
   IsIn,
   IsOptional,
 } from 'class-validator';
-import { transactionType } from '@prisma/client';
+import { TransactionType, PriorityType } from '@prisma/client';
 
 export class CreateQueueDto {
   @IsNotEmpty({
@@ -29,5 +29,8 @@ export class CreateQueueDto {
   contactNumber?: string;
 
   @IsIn(['payment', 'checkReleasing', 'inquiry'])
-  transactionType: transactionType;
+  transactionType: TransactionType;
+
+  @IsIn(['senior', 'pwd', 'pregnant', 'normal'])
+  priorityType: PriorityType;
 }
